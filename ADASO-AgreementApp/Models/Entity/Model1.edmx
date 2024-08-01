@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ADASOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TBLAdmin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AdminSurname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tel" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AdminMail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TC" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AgreementNo" Type="int" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBLAgreement">
+          <Key>
+            <PropertyRef Name="AgreementNo" />
+          </Key>
+          <Property Name="AgreementNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AgrTitle" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AgrContent" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AgrFinishDate" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AgrStartDate" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AdminID" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_TBLAdmin_TBLAgreement">
+          <End Role="TBLAgreement" Type="Self.TBLAgreement" Multiplicity="1" />
+          <End Role="TBLAdmin" Type="Self.TBLAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLAgreement">
+              <PropertyRef Name="AgreementNo" />
+            </Principal>
+            <Dependent Role="TBLAdmin">
+              <PropertyRef Name="AgreementNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLAgreement_TBLAdmin">
+          <End Role="TBLAdmin" Type="Self.TBLAdmin" Multiplicity="1" />
+          <End Role="TBLAgreement" Type="Self.TBLAgreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLAdmin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="TBLAgreement">
+              <PropertyRef Name="AdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ADASOModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLAdmin" EntityType="Self.TBLAdmin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLAgreement" EntityType="Self.TBLAgreement" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBLAdmin_TBLAgreement" Association="Self.FK_TBLAdmin_TBLAgreement">
+            <End Role="TBLAgreement" EntitySet="TBLAgreement" />
+            <End Role="TBLAdmin" EntitySet="TBLAdmin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLAgreement_TBLAdmin" Association="Self.FK_TBLAgreement_TBLAdmin">
+            <End Role="TBLAdmin" EntitySet="TBLAdmin" />
+            <End Role="TBLAgreement" EntitySet="TBLAgreement" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ADASOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TBLAdmin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdminSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdminMail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AgreementNo" Type="Int32" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TBLAgreement" Relationship="Self.FK_TBLAdmin_TBLAgreement" FromRole="TBLAdmin" ToRole="TBLAgreement" />
+          <NavigationProperty Name="TBLAgreement1" Relationship="Self.FK_TBLAgreement_TBLAdmin" FromRole="TBLAdmin" ToRole="TBLAgreement" />
+        </EntityType>
+        <EntityType Name="TBLAgreement">
+          <Key>
+            <PropertyRef Name="AgreementNo" />
+          </Key>
+          <Property Name="AgreementNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AgrTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AgrContent" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AgrFinishDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AgrStartDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdminID" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TBLAdmin" Relationship="Self.FK_TBLAdmin_TBLAgreement" FromRole="TBLAgreement" ToRole="TBLAdmin" />
+          <NavigationProperty Name="TBLAdmin1" Relationship="Self.FK_TBLAgreement_TBLAdmin" FromRole="TBLAgreement" ToRole="TBLAdmin" />
+        </EntityType>
+        <Association Name="FK_TBLAdmin_TBLAgreement">
+          <End Role="TBLAgreement" Type="Self.TBLAgreement" Multiplicity="1" />
+          <End Role="TBLAdmin" Type="Self.TBLAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLAgreement">
+              <PropertyRef Name="AgreementNo" />
+            </Principal>
+            <Dependent Role="TBLAdmin">
+              <PropertyRef Name="AgreementNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLAgreement_TBLAdmin">
+          <End Role="TBLAdmin" Type="Self.TBLAdmin" Multiplicity="1" />
+          <End Role="TBLAgreement" Type="Self.TBLAgreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLAdmin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="TBLAgreement">
+              <PropertyRef Name="AdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ADASOEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TBLAdmin" EntityType="Self.TBLAdmin" />
+          <EntitySet Name="TBLAgreement" EntityType="Self.TBLAgreement" />
+          <AssociationSet Name="FK_TBLAdmin_TBLAgreement" Association="Self.FK_TBLAdmin_TBLAgreement">
+            <End Role="TBLAgreement" EntitySet="TBLAgreement" />
+            <End Role="TBLAdmin" EntitySet="TBLAdmin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLAgreement_TBLAdmin" Association="Self.FK_TBLAgreement_TBLAdmin">
+            <End Role="TBLAdmin" EntitySet="TBLAdmin" />
+            <End Role="TBLAgreement" EntitySet="TBLAgreement" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ADASOModelStoreContainer" CdmEntityContainer="ADASOEntities1">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ADASOModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLAdmin">
+            <EntityTypeMapping TypeName="ADASOModel.TBLAdmin">
+              <MappingFragment StoreEntitySet="TBLAdmin">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+                <ScalarProperty Name="AdminSurname" ColumnName="AdminSurname" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="AdminMail" ColumnName="AdminMail" />
+                <ScalarProperty Name="TC" ColumnName="TC" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="AgreementNo" ColumnName="AgreementNo" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLAgreement">
+            <EntityTypeMapping TypeName="ADASOModel.TBLAgreement">
+              <MappingFragment StoreEntitySet="TBLAgreement">
+                <ScalarProperty Name="AgreementNo" ColumnName="AgreementNo" />
+                <ScalarProperty Name="AgrTitle" ColumnName="AgrTitle" />
+                <ScalarProperty Name="AgrContent" ColumnName="AgrContent" />
+                <ScalarProperty Name="AgrFinishDate" ColumnName="AgrFinishDate" />
+                <ScalarProperty Name="AgrStartDate" ColumnName="AgrStartDate" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
