@@ -11,7 +11,7 @@ namespace ADASO_AgreementApp.Controllers
     {
         // GET: Agreement
         ADASOEntities1 db = new ADASOEntities1 ();
-        public ActionResult Agreements()
+        public ActionResult Index()
         {
             return View();
         }

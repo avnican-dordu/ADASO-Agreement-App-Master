@@ -2137,8 +2137,8 @@
     <Content Include="startbootstrap-sb-admin-2-gh-pages\vendor\jquery\jquery.min.map" />
     <Content Include="startbootstrap-sb-admin-2-gh-pages\vendor\jquery\jquery.slim.min.map" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Agreement\Agreements.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Agreement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
