@@ -254,6 +254,8 @@
     <Content Include="startbootstrap-sb-admin-2-gh-pages\css\sb-admin-2.min.css" />
     <Content Include="startbootstrap-sb-admin-2-gh-pages\forgot-password.html" />
     <Content Include="startbootstrap-sb-admin-2-gh-pages\gulpfile.js" />
+    <Content Include="startbootstrap-sb-admin-2-gh-pages\img\ADASO_Logo_Alternatif_1.png" />
+    <Content Include="startbootstrap-sb-admin-2-gh-pages\img\logo1.png" />
     <Content Include="startbootstrap-sb-admin-2-gh-pages\img\undraw_posting_photo.svg" />
     <Content Include="startbootstrap-sb-admin-2-gh-pages\img\undraw_profile.svg" />
     <Content Include="startbootstrap-sb-admin-2-gh-pages\img\undraw_profile_1.svg" />
