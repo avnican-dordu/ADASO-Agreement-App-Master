@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "filesystem",
+      "library": "startbootstrap-sb-admin-2-gh-pages/",
+      "destination": "lib/startbootstrap-sb-admin-2-gh-pages/"
+    }
+  ]
+}
