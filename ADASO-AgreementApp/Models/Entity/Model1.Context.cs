@@ -13,10 +13,10 @@ namespace ADASO_AgreementApp.Models.Entity
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ADASOEntities1 : DbContext
+    public partial class ADASOEntities2 : DbContext
     {
-        public ADASOEntities1()
-            : base("name=ADASOEntities1")
+        public ADASOEntities2()
+            : base("name=ADASOEntities2")
         {
         }
     

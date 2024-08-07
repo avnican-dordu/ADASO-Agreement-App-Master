@@ -28,6 +28,7 @@
           <Property Name="Image" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AgreementNo" Type="int" Nullable="false" />
           <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TBLAgreement">
           <Key>
@@ -108,6 +109,7 @@
           <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AgreementNo" Type="Int32" Nullable="false" />
           <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TBLAgreement" Relationship="Self.FK_TBLAdmin_TBLAgreement" FromRole="TBLAdmin" ToRole="TBLAgreement" />
           <NavigationProperty Name="TBLAgreement1" Relationship="Self.FK_TBLAgreement_TBLAdmin" FromRole="TBLAdmin" ToRole="TBLAgreement" />
         </EntityType>
@@ -151,7 +153,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ADASOEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ADASOEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TBLAdmin" EntityType="Self.TBLAdmin" />
           <EntitySet Name="TBLAgreement" EntityType="Self.TBLAgreement" />
@@ -169,7 +171,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ADASOModelStoreContainer" CdmEntityContainer="ADASOEntities1">
+        <EntityContainerMapping StorageEntityContainer="ADASOModelStoreContainer" CdmEntityContainer="ADASOEntities2">
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="ADASOModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -193,6 +195,7 @@
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="AgreementNo" ColumnName="AgreementNo" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

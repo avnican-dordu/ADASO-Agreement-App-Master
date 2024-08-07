@@ -10,7 +10,7 @@ namespace ADASO_AgreementApp.Controllers
     public class AgreementController : Controller
     {
         // GET: Agreement
-        ADASOEntities1 db = new ADASOEntities1 ();
+        ADASOEntities2 db = new ADASOEntities2();
         public ActionResult Index()
         {
             return View();

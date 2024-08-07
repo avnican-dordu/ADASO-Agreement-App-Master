@@ -29,6 +29,7 @@ namespace ADASO_AgreementApp.Models.Entity
         public string Image { get; set; }
         public int AgreementNo { get; set; }
         public string Role { get; set; }
+        public string Password { get; set; }
     
         public virtual TBLAgreement TBLAgreement { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
