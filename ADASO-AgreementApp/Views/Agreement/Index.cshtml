@@ -19,16 +19,16 @@
                         <th>Başlangıç Tarihi</th>
                         <th>Bitiş Tarihi</th>
                         <th>Şirket</th>
-                        <th>Kullanıcı ID</th>
+                        @* <th>Kullanıcı ID</th>*@
                         <th>Mail</th>
                         <th>Alarm Kur</th>
                     </tr>
                 </thead>
-           
+
                 <tbody>
                     @*
-                        Güncelle butonu 
-                        ForEach 
+                Güncelle butonu
+                ForEach
                     *@
                     <tr>
                         <td>1</td>
@@ -40,7 +40,7 @@
                         <td>3</td>
                         <td>adaso@mail</td>
                         <td><a href="#" class="btn btn-info">Alarm Kur</a></td>
-                        
+
                     </tr>
                     <tr>
                         <td>2</td>
@@ -52,9 +52,14 @@
                         <td>5</td>
                         <td>adaso@mail</td>
                         <td><a href="#" class="btn btn-info">Alarm Kur</a></td>
+                        <td><a href="#" class="btn btn-success">Güncelle</a></td>
+
                     </tr>
                 </tbody>
             </table>
+            @* Yeni Sözleşme ekleme*@
+            <a href="#/Agreement/NewAgrement" class="btn btn-primary">Yeni Sözleşme Eke</a>
+
         </div>
     </div>
 </div>

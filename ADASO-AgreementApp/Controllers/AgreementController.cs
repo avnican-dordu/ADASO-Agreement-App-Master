@@ -26,7 +26,7 @@ namespace ADASO_AgreementApp.Controllers
             soz.AgrStartDate = p.AgrStartDate;
             soz.Image = p.Image;
             soz.CompanyName = p.CompanyName;
-            soz.AdminID = p.AdminID;
+            //soz.AdminID = p.AdminID;
             //var admin = db.TBLAdmin.Where(m => m.AdminID == p.TBLAdmin.AdminID).FirstOrDefault();
             //soz.AdminID = admin.AdminID;
             soz.Email = p.Email;
@@ -36,5 +36,21 @@ namespace ADASO_AgreementApp.Controllers
 
 
         }
+
+        // yeni sözleşme ekleme
+        [HttpGet]
+        public ActionResult NewAgrement()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult NewAgrement(TBLAgreement p1)
+        {
+            db.TBLAgreement.Add(p1);
+            db.SaveChanges();
+            return View();
+        }
+
+
     }
 }
