@@ -8,6 +8,6 @@ namespace ADASO_AgreementApp.Models.ViewModel
 {
     public class AgreementModel
     {
-        public IEnumerable<TBLAgreement> Agreements  { get; set; }
+        public IEnumerable<Agreementt> Agreements  { get; set; }
     }
 }

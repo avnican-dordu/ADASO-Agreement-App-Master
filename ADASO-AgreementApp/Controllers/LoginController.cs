@@ -11,7 +11,7 @@ namespace ADASO_AgreementApp.Controllers
     public class LoginController : Controller
     {
         // GET: Login
-        ADASOEntities2 db = new ADASOEntities2();
+        ADASOEntities3 db = new ADASOEntities3();
         Class cs = new Class();
 
         [HttpGet]
@@ -20,10 +20,10 @@ namespace ADASO_AgreementApp.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(TBLAdmin a)
+        public ActionResult Login(Adminn a)
         {
             Class admin = new Class();
-            var admininfo = admin.Admins.FirstOrDefault(m => m.AdminMail == a.AdminMail && m.Password == a.Password);
+            var admininfo = admin.Admins.FirstOrDefault(m => m.Mail == a.Mail && m.Password == a.Password);
             if (admininfo == null)
             {
                 return RedirectToAction("Index","Admin");

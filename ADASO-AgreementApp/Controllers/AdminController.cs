@@ -11,28 +11,25 @@ namespace ADASO_AgreementApp.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        ADASOEntities2 db = new ADASOEntities2();
+        ADASOEntities3 db = new ADASOEntities3();
         Class cs = new Class();
 
         [Authorize]
         public ActionResult Index()
         {
-            var list = db.TBLAdmin.ToList();
+            var list = db.Adminn.ToList();
             return View(list);
         }
 
-        public ActionResult Guncelle(TBLAdmin p)
+        public ActionResult Guncelle(Adminn p)
         {
-            var admin = db.TBLAdmin.Find(p.AdminID);
-            admin.AdminName = p.AdminName;
-            admin.AdminSurname = p.AdminSurname;
+            var admin = db.Adminn.Find(p.Id);
+            admin.Name = p.Name;
+            admin.Surname = p.Surname;
             admin.Tel = p.Tel;
-            admin.AdminMail = p.AdminMail;
+            admin.Mail = p.Mail;
             admin.TC = p.TC;
             admin.Image = p.Image;
-            //admin.AgreementNo = p.AgreementNo;
-            var sozlesme = db.TBLAgreement.Where(m => m.AgreementNo == p.TBLAgreement.AgreementNo).FirstOrDefault();
-            admin.AgreementNo = sozlesme.AgreementNo;
             admin.Role = p.Role;
             admin.Password = p.Password;
 

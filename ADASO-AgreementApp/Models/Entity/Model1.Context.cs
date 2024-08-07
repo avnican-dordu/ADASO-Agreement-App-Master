@@ -13,10 +13,10 @@ namespace ADASO_AgreementApp.Models.Entity
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ADASOEntities2 : DbContext
+    public partial class ADASOEntities3 : DbContext
     {
-        public ADASOEntities2()
-            : base("name=ADASOEntities2")
+        public ADASOEntities3()
+            : base("name=ADASOEntities3")
         {
         }
     
@@ -25,8 +25,8 @@ namespace ADASO_AgreementApp.Models.Entity
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Adminn> Adminn { get; set; }
+        public virtual DbSet<Agreementt> Agreementt { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<TBLAdmin> TBLAdmin { get; set; }
-        public virtual DbSet<TBLAgreement> TBLAgreement { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace ADASO_AgreementApp.Models.ViewModel
 {
     public class Class
     {
-        public IEnumerable<TBLAdmin> Admins { get; set; }
-        public IEnumerable<TBLAgreement> Agreements { get; set; }
+        public IEnumerable<Adminn> Admins { get; set; }
+        public IEnumerable<Agreementt> Agreements { get; set; }
     }
 }

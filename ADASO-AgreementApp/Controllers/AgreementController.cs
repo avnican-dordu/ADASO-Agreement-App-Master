@@ -10,21 +10,21 @@ namespace ADASO_AgreementApp.Controllers
     public class AgreementController : Controller
     {
         // GET: Agreement
-        ADASOEntities2 db = new ADASOEntities2();
+        ADASOEntities3 db = new ADASOEntities3();
         public ActionResult Index()
         {
-            var list = db.TBLAgreement.ToList();
+            var list = db.Agreementt.ToList();
             return View(list);
         }
 
-        public ActionResult Guncelle(TBLAgreement p)
+        public ActionResult Guncelle(Agreementt p)
         {
-            var soz = db.TBLAgreement.Find(p.AgreementNo);
-            soz.AgrTitle = p.AgrTitle;
-            soz.AgrContent = p.AgrContent;
-            soz.AgrFinishDate = p.AgrFinishDate;
-            soz.AgrStartDate = p.AgrStartDate;
-            soz.Image = p.Image;
+            var soz = db.Agreementt.Find(p.AgreementNo);
+            soz.Title = p.Title;
+            soz.Content = p.Content;
+            soz.EndDate = p.EndDate;
+            soz.StartDate = p.StartDate;
+            soz.File = p.File;
             soz.CompanyName = p.CompanyName;
             //soz.AdminID = p.AdminID;
             //var admin = db.TBLAdmin.Where(m => m.AdminID == p.TBLAdmin.AdminID).FirstOrDefault();
@@ -44,9 +44,9 @@ namespace ADASO_AgreementApp.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult NewAgrement(TBLAgreement p1)
+        public ActionResult NewAgrement(Agreementt p1)
         {
-            db.TBLAgreement.Add(p1);
+            db.Agreementt.Add(p1);
             db.SaveChanges();
             return View();
         }

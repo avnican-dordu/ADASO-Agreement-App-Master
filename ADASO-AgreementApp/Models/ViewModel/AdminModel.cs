@@ -8,6 +8,6 @@ namespace ADASO_AgreementApp.Models.ViewModel
 {
     public class AdminModel
     {
-        public IEnumerable<TBLAdmin> Admins { get; set; }
+        public IEnumerable<Adminn> Admins { get; set; }
     }
 }

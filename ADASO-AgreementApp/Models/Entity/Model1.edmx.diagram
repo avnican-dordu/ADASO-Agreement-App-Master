@@ -4,12 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d2d14fbcf00642d39aee16e6ba8cd90f" Name="Diagram1">
-        <EntityTypeShape EntityType="ADASOModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADASOModel.TBLAdmin" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ADASOModel.TBLAgreement" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <AssociationConnector Association="ADASOModel.FK_TBLAdmin_TBLAgreement" ManuallyRouted="false" />
-        <AssociationConnector Association="ADASOModel.FK_TBLAgreement_TBLAdmin" ManuallyRouted="false" />
+      <Diagram DiagramId="eb80f289425b49c1a9c60c79aef25e9c" Name="Diagram1">
+        <EntityTypeShape EntityType="ADASOModel.Adminn" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADASOModel.Agreementt" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADASOModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
