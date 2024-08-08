@@ -1,4 +1,5 @@
-﻿
+﻿@using ADASO_AgreementApp.Models.Entity
+@model List<Agreementt>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -14,53 +15,44 @@
                 <thead>
                     <tr>
                         <th>Sözleşme ID</th>
-                        <th>Sözleşme Adı</th>
+                        <th>Sözleşme Başlığı</th>
                         <th>Sözleşme İçeriği</th>
                         <th>Başlangıç Tarihi</th>
                         <th>Bitiş Tarihi</th>
                         <th>Şirket</th>
-                        @* <th>Kullanıcı ID</th>*@
                         <th>Mail</th>
-                        <th>Alarm Kur</th>
+                        <th>Güncelle</th>
+                        <th>Durum</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @*
-                Güncelle butonu
-                ForEach
-                    *@
-                    <tr>
-                        <td>1</td>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>12.05.2024</td>
-                        <td>12.06.2024</td>
-                        <td>ADASO</td>
-                        <td>3</td>
-                        <td>adaso@mail</td>
-                        <td><a href="#" class="btn btn-info">Alarm Kur</a></td>
+                    @foreach (var i in Model)
+                    {
 
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>12.05.2024</td>
-                        <td>12.06.2024</td>
-                        <td>ADASO</td>
-                        <td>5</td>
-                        <td>adaso@mail</td>
-                        <td><a href="#" class="btn btn-info">Alarm Kur</a></td>
-                        <td><a href="#" class="btn btn-success">Güncelle</a></td>
 
-                    </tr>
+                        <tr>
+                            <td>@i.Id</td>
+                            <td>@i.Title</td>
+                            <td>@i.Content</td>
+                            <td>@i.StartDate</td>
+                            <td>@i.EndDate</td>
+                            <td>@i.CompanyName</td>
+                            <td>@i.Email</td>
+
+
+                            <td><a href="~/Agreement/SozlesmeGetir/@i.Id" class="btn btn-info">Güncelle</a></td>
+                            <td>@i.Status</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
-            @* Yeni Sözleşme ekleme*@
-            <a href="#/Agreement/NewAgrement" class="btn btn-primary">Yeni Sözleşme Eke</a>
-
+            <div>
+                <a href="~/Agreement/NewAgrement" class="btn btn-info">Sözleşme Ekle</a>
+            </div>
+            <script>$('#btn').click(function () {
+            alert('Sözleşme Eklendi');
+        });</script>
         </div>
     </div>
 </div>
-

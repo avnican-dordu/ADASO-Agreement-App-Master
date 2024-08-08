@@ -22,6 +22,7 @@ namespace ADASO_AgreementApp.Models.Entity
         public string File { get; set; }
         public string CompanyName { get; set; }
         public string Email { get; set; }
+        public string Status { get; set; }
         public Nullable<int> AgreementNo { get; set; }
     }
 }

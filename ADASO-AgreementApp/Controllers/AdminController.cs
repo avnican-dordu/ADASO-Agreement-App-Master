@@ -21,11 +21,15 @@ namespace ADASO_AgreementApp.Controllers
             return View(list);
         }
     
-        public ActionResult Guncelle(Adminn p1)
+        public ActionResult Guncelle(Adminn p)
         {
-            var item = db.Adminn.Find(p1.Id);
-            item.Name = p1.Name;
-            item.Surname = p1.Surname;
+            var item = db.Adminn.Find(p.Id);
+            item.Name = p.Name;
+            item.Surname = p.Surname;
+            item.Tel = p.Tel;
+            item.Mail = p.Mail;
+            item.TC = p.TC;
+            item.Role = p.Role;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

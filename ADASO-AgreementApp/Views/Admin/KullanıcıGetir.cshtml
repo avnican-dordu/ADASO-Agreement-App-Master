@@ -9,7 +9,7 @@
 
 @using (Html.BeginForm("Guncelle","Admin", FormMethod.Post))
 {
-    <div class="form-group">
+    <div class="form-group" style="padding-left:10px;">
         @Html.LabelFor(m => m.Id)
         @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })
         <br />
@@ -19,9 +19,24 @@
         <br />
         @Html.LabelFor(m => m.Surname)
         @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(m => m.Tel)
+        @Html.TextBoxFor(m => m.Tel, new { @class = "form-control" })
+
+        <br />
+        @Html.LabelFor(m => m.Mail)
+        @Html.TextBoxFor(m => m.Mail, new { @class = "form-control" })
+        
+        <br />
+        @Html.LabelFor(m => m.TC)
+        @Html.TextBoxFor(m => m.TC, new { @class = "form-control" })
+
+        <br />
+        @Html.LabelFor(m => m.Role)
+        @Html.TextBoxFor(m => m.Role, new { @class = "form-control" })
     </div>
-<div>
-    <button class="btn btn-success">GÜNCELLE</button>
+<div style="padding-left:10px;">
+    <button class="btn btn-success" style="margin-bottom:10px;">GÜNCELLE</button>
 </div>
 }
 

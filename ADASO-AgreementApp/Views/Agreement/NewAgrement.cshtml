@@ -1,29 +1,29 @@
-﻿@model ADASO_AgreementApp.Models.Entity.TBLAgreement
+﻿@model ADASO_AgreementApp.Models.Entity.Agreementt
 @{
     ViewBag.Title = "NewAgrement";
-    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<form class="form-group" method="post">
+<form class="form-group" method="post" style="margin-left:15px;">
     <div>
         <label>Sözleşme Adı</label>
-        @Html.TextBoxFor(m => m.AgrTitle, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.AgrTitle, "", new { @style = "color:blue" })
+        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Title, "", new { @style = "color:blue" })
     </div>
     <div>
         <label>Sözleşme İçeriği</label>
-        @Html.TextBoxFor(m => m.AgrContent, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.AgrContent, "", new { @style = "color:blue" })
+        @Html.TextBoxFor(m => m.Content, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Content, "", new { @style = "color:blue" })
     </div>
     <div>
         <label>Başlangıç Tarihi</label>
-        @Html.TextBoxFor(m => m.AgrStartDate, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.AgrStartDate, "", new { @style = "color:blue" })
+        @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.StartDate, "", new { @style = "color:blue" })
     </div>
     <div>
         <label>Bitiş Tarihi</label>
-        @Html.TextBoxFor(m => m.AgrFinishDate, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.AgrFinishDate, "", new { @style = "color:blue" })
+        @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.EndDate, "", new { @style = "color:blue" })
     </div>
     <div>
         <label>Şirket</label>
@@ -39,8 +39,11 @@
 
 
     <div style="margin-top:10px">
-        <button class="btn btn-info">Sözleşme Ekle</button>
+        <button id="btn" class="btn btn-info">Sözleşme Ekle</button>
     </div>
 
-</form>
 
+    <script>$("#btn").click(function () {
+            alert("Sözleşme Eklendi");
+        })</script>
+</form>

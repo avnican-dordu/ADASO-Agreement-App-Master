@@ -1,0 +1,45 @@
+﻿@model ADASO_AgreementApp.Models.Entity.Agreementt
+@{
+    ViewBag.Title = "SozlesmeGetir";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("Guncelle", "Agreement", FormMethod.Post))
+{
+    <div class="form-group" style="padding-left:10px;">
+        @Html.LabelFor(m => m.Id)
+        @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(m => m.Content)
+        @Html.TextBoxFor(m => m.Content, new { @class = "form-control" })
+
+        <br />
+        @Html.LabelFor(m => m.EndDate)
+        @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(m => m.StartDate)
+        @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control" })
+
+        <br />
+        @Html.LabelFor(m => m.File)
+        @Html.TextBoxFor(m => m.File, new { @class = "form-control" })
+
+        <br />
+        @Html.LabelFor(m => m.CompanyName)
+        @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+
+        <br />
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(m => m.AgreementNo)
+        @Html.TextBoxFor(m => m.AgreementNo, new { @class = "form-control" })
+    </div>
+    <div style="padding-left:10px;">
+        <button class="btn btn-success" style="margin-bottom:10px;">GÜNCELLE</button>
+    </div>
+}
+
