@@ -7,20 +7,22 @@
 
 
 
-@*@Html.BeginForm(new { action = "Guncelle", controller = "Admin", id = Model.Id })*@
-<div class="form-group">
-    @Html.LabelFor(m => m.Id)
-    @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })
-    <br />
-    @Html.LabelFor(m => m.Name)
-    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+@using (Html.BeginForm("Guncelle","Admin", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Id)
+        @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
 
-    <br />
-    @Html.LabelFor(m => m.Surname)
-    @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
-</div>
+        <br />
+        @Html.LabelFor(m => m.Surname)
+        @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
+    </div>
 <div>
     <button class="btn btn-success">GÜNCELLE</button>
 </div>
+}
 
 

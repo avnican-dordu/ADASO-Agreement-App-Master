@@ -20,30 +20,20 @@ namespace ADASO_AgreementApp.Controllers
             var list = db.Adminn.ToList();
             return View(list);
         }
-        [HttpGet]
+    
+        public ActionResult Guncelle(Adminn p1)
+        {
+            var item = db.Adminn.Find(p1.Id);
+            item.Name = p1.Name;
+            item.Surname = p1.Surname;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         public ActionResult KullanıcıGetir(int id)
         {
             var item = db.Adminn.Find(id);
             return View("KullanıcıGetir", item);
-
-        }
-
-        //[HttpPost]
-        public ActionResult Guncelle(Adminn p)
-        {
-            var admin = db.Adminn.Find(p.Id);
-            admin.Name = p.Name;
-            admin.Surname = p.Surname;
-            admin.Tel = p.Tel;
-            admin.Mail = p.Mail;
-            admin.TC = p.TC;
-            admin.Image = p.Image;
-            admin.Role = p.Role;
-            admin.Password = p.Password;
-
-            db.SaveChanges();
-
-            return RedirectToAction("Index");
 
         }
     }
