@@ -14,13 +14,21 @@ namespace ADASO_AgreementApp.Controllers
         ADASOEntities3 db = new ADASOEntities3();
         Class cs = new Class();
 
-        [Authorize]
+        //[Authorize]
         public ActionResult Index()
         {
             var list = db.Adminn.ToList();
             return View(list);
         }
+        [HttpGet]
+        public ActionResult KullanıcıGetir(int id)
+        {
+            var item = db.Adminn.Find(id);
+            return View("KullanıcıGetir", item);
 
+        }
+
+        //[HttpPost]
         public ActionResult Guncelle(Adminn p)
         {
             var admin = db.Adminn.Find(p.Id);
