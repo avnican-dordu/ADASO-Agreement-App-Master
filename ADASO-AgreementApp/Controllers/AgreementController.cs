@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace ADASO_AgreementApp.Controllers
 {
@@ -11,8 +12,41 @@ namespace ADASO_AgreementApp.Controllers
     {
         // GET: Agreement
         ADASOEntities3 db = new ADASOEntities3();
+        private readonly EmailService _emailService;
+
+
+        public AgreementController()
+        {
+            // EmailService nesnesini SMTP ayarlarıyla başlatıyoruz
+           _emailService = new EmailService("smtp.gmail.com", 587, "gulserenzamir@gmail.com", "123456");
+        }
+
+        public ActionResult NotifyExpiringContracts()
+        {
+            using (var context = new ADASOEntities3())
+            {
+                // Bugünün tarihini alıyoruz
+                var today = DateTime.Today;
+
+                // Sözleşme bitiş tarihine 15 gün kalanları sorguluyoruz
+                var upcomingContracts = context.Agreementt
+                    .Where(c => DbFunctions.DiffMinutes(today, c.EndDate) == 1)
+                    .ToList();
+
+                // Her bir sözleşme için e-posta gönderiyoruz
+                foreach (var contract in upcomingContracts)
+                {
+                    var emailBody = $"Sevgili Müşterimiz,  {contract.Title} adlı sözleşmenizin bitmesine {contract.EndDate} gün kaldı. Hatırlatmak ister iyi günler dileriz.";
+                    _emailService.SendMail(contract.Email, "Contract Expiration Notice", emailBody);
+                }
+            }
+
+            // İşlem sonrası yönlendirme veya bildirim
+            return View("Index");
+        }
         public ActionResult Index()
         {
+            
             var list = db.Agreementt.ToList();
             foreach (var agreement in list)
             {

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Hangfire;
 
 namespace ADASO_AgreementApp
 {
@@ -16,6 +17,16 @@ namespace ADASO_AgreementApp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+          
+            //GlobalConfiguration.Configuration.UseSqlServerStorage("DefaultConnection");
+
+            //// Hangfire'ý baþlatýyoruz
+            //app.UseHangfireDashboard();
+            //app.UseHangfireServer();
+
+            //// Zamanlanmýþ görevi tanýmlýyoruz (her gün çalýþacak þekilde)
+            //RecurringJob.AddOrUpdate<AgreementController>(job => job.NotifyExpiringContracts(), Cron.Daily);
         }
     }
 }
