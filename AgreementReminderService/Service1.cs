@@ -1,6 +1,7 @@
 ﻿namespace AgreementReminderService
 {
     using System;
+    using System.Collections.Generic;
     using System.Data.SqlClient;
     using System.Data.SqlTypes;
     using System.Diagnostics;
@@ -46,7 +47,8 @@
                 {
                     conn.Open();
                     string query = @"
-            SELECT a.Title, a.Email, DATEDIFF(day, GETDATE(), a.EndDate) AS DaysLeft, a.ReminderSentFor, a.Content, m.MailAdress AS AdditionalEmail
+            SELECT a.Title, a.Email, DATEDIFF(day, GETDATE(), a.EndDate) AS DaysLeft, 
+                   a.ReminderSentFor, a.Content, m.MailAdress AS AdditionalEmail
             FROM Agreementt a
             LEFT JOIN AgreementMaill am ON a.Id = am.AgreementId
             LEFT JOIN Maill m ON am.MaillId = m.Id
@@ -54,6 +56,8 @@
 
                     SqlCommand cmd = new SqlCommand(query, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
+
+                    HashSet<string> processedMainEmails = new HashSet<string>();
 
                     while (reader.Read())
                     {
@@ -64,60 +68,53 @@
                         int daysLeft = Convert.ToInt32(reader["DaysLeft"]);
                         string reminderSentFor = reader["ReminderSentFor"].ToString();
 
-                        // Hatırlatma koşulları
-                        if (daysLeft <= 30 && daysLeft > 15 && reminderSentFor != "1")
+                        // Ana mail için sadece bir kez mail gönderme
+                        if (!processedMainEmails.Contains(mainEmail))
                         {
-                            // Ana email gönderimi
-                            SendReminderEmail(mainEmail, title, daysLeft, content);
+                            if (daysLeft <= 30 && daysLeft > 15 && reminderSentFor != "1")
+                            {
+                                SendReminderEmail(mainEmail, title, daysLeft, content);
+                                UpdateReminderStatus(conn, title, "1", content);
+                            }
+                            else if (daysLeft <= 15 && daysLeft > 7 && reminderSentFor != "2")
+                            {
+                                SendReminderEmail(mainEmail, title, daysLeft, content);
+                                UpdateReminderStatus(conn, title, "2", content);
+                            }
+                            else if (daysLeft <= 7 && daysLeft > 1 && reminderSentFor != "3")
+                            {
+                                SendReminderEmail(mainEmail, title, daysLeft, content);
+                                UpdateReminderStatus(conn, title, "3", content);
+                            }
+                            else if (daysLeft == 1 && reminderSentFor != "4")
+                            {
+                                SendReminderEmail(mainEmail, title, daysLeft, content);
+                                UpdateReminderStatus(conn, title, "4", content);
+                            }
+                            else if (daysLeft == 0 && reminderSentFor != "5")
+                            {
+                                SendEndDateEmail(mainEmail, title, content);
+                                UpdateReminderStatus(conn, title, "5", content);
+                            }
 
-                            // Ek email gönderimi
+                            processedMainEmails.Add(mainEmail);
+                        }
+
+                        if (daysLeft != 0)
+                        {
                             if (!string.IsNullOrEmpty(additionalEmail))
                             {
                                 SendReminderEmail(additionalEmail, title, daysLeft, content);
                             }
-
-                            UpdateReminderStatus(conn, title, "1", content);
                         }
-                        else if (daysLeft <= 15 && daysLeft > 7 && reminderSentFor != "2")
+                        else
                         {
-                            SendReminderEmail(mainEmail, title, daysLeft, content);
                             if (!string.IsNullOrEmpty(additionalEmail))
                             {
-                                SendReminderEmail(additionalEmail, title, daysLeft, content);
+                                SendEndDateEmail(additionalEmail, title, content);
                             }
-
-                            UpdateReminderStatus(conn, title, "2", content);
                         }
-                        else if (daysLeft <= 7 && daysLeft >= 1 && reminderSentFor != "3")
-                        {
-                            SendReminderEmail(mainEmail, title, daysLeft, content);
-                            if (!string.IsNullOrEmpty(additionalEmail))
-                            {
-                                SendReminderEmail(additionalEmail, title, daysLeft, content);
-                            }
 
-                            UpdateReminderStatus(conn, title, "3", content);
-                        }
-                        else if (daysLeft == 1 && reminderSentFor != "4")
-                        {
-                            SendReminderEmail(mainEmail, title, daysLeft, content);
-                            if (!string.IsNullOrEmpty(additionalEmail))
-                            {
-                                SendReminderEmail(additionalEmail, title, daysLeft, content);
-                            }
-
-                            UpdateReminderStatus(conn, title, "4", content);
-                        }
-                        else if (daysLeft == 0 && reminderSentFor != "5")
-                        {
-                            SendReminderEmail(mainEmail, title, daysLeft, content);
-                            if (!string.IsNullOrEmpty(additionalEmail))
-                            {
-                                SendReminderEmail(additionalEmail, title, daysLeft, content);
-                            }
-
-                            UpdateReminderStatus(conn, title, "4", content);
-                        }
                     }
 
                     reader.Close();
@@ -128,6 +125,7 @@
                 EventLog.WriteEntry("Error checking agreements: " + ex.Message, EventLogEntryType.Error);
             }
         }
+
 
 
 
