@@ -100,14 +100,14 @@
                             processedMainEmails.Add(mainEmail);
                         }
 
-                        if (daysLeft != 0)
+                        if (daysLeft > 0)
                         {
                             if (!string.IsNullOrEmpty(additionalEmail))
                             {
                                 SendReminderEmail(additionalEmail, title, daysLeft, content);
                             }
                         }
-                        else
+                        else if(daysLeft == 0) 
                         {
                             if (!string.IsNullOrEmpty(additionalEmail))
                             {
