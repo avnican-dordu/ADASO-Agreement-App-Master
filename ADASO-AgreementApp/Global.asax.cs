@@ -1,11 +1,12 @@
+using ADASO_AgreementApp.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Hangfire;
 
 namespace ADASO_AgreementApp
 {
@@ -16,17 +17,7 @@ namespace ADASO_AgreementApp
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-          
-            //GlobalConfiguration.Configuration.UseSqlServerStorage("DefaultConnection");
-
-            //// Hangfire'ý baþlatýyoruz
-            //app.UseHangfireDashboard();
-            //app.UseHangfireServer();
-
-            //// Zamanlanmýþ görevi tanýmlýyoruz (her gün çalýþacak þekilde)
-            //RecurringJob.AddOrUpdate<AgreementController>(job => job.NotifyExpiringContracts(), Cron.Daily);
+            GlobalFilters.Filters.Add(new AuthAttribute());
         }
     }
 }

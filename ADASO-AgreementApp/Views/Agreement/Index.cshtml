@@ -1,59 +1,377 @@
-﻿@using ADASO_AgreementApp.Models.Entity
-@model List<Agreementt>
+﻿@model ADASO_AgreementApp.Models.ViewModel.Class
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">SÖZLEŞMELER</h6>
     </div>
     <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <div class="table-responsive" style="overflow-x: hidden;">
+            <table class="table table-hover table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Sözleşme ID</th>
                         <th>Sözleşme Başlığı</th>
                         <th>Sözleşme İçeriği</th>
                         <th>Başlangıç Tarihi</th>
                         <th>Bitiş Tarihi</th>
                         <th>Şirket</th>
-                        <th>Mail</th>
-                        <th>Güncelle</th>
-                        <th>Durum</th>
+                        <th>Aktif/Pasif</th>
+                        <th>İşemler</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach (var i in Model)
+                    @foreach (var i in Model.Agreements)
                     {
 
 
-                    <tr>
-                        <td>@i.Id</td>
-                        <td>@i.Title</td>
-                        <td>@i.Content</td>
-                        <td>@i.StartDate</td>
-                        <td>@i.EndDate</td>
-                        <td>@i.CompanyName</td>
-                        <td>@i.Email</td>
-
-
-                        <td><a href="~/Agreement/SozlesmeGetir/@i.Id" class="btn btn-info">Güncelle</a></td>
-                        <td>@i.Status</td>
-                        
-                    </tr>
+                        <tr>
+                            <td>@i.Title</td>
+                            <td>@i.Content</td>
+                            <td>@i.StartDate</td>
+                            <td>@i.EndDate</td>
+                            <td>@i.CompanyName</td>
+                            <td>
+                                <div class="form-check form-switch" style="margin-left:25px;">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="toggle-@i.Id"
+                                           onchange="toggleStatus(@i.Id)"
+                                           @(i.Status == "Aktif" ? "checked" : "")>
+                                    <label class="form-check-label" for="toggle-@i.Id"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <i class="fa fa-gear" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size">
+                                    </i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a href="~/Agreement/SozlesmeGetir/@i.Id" class="dropdown-item">Güncelle</a>
+                                        <button class="dropdown-item" onclick="openRenewModal(@i.Id, '@i.Title', '@i.Content', '@i.StartDate', '@i.EndDate', '@i.CompanyName', '@i.Email', '@i.Status', '@i.AdminID')">Yenile</button>
+                                        <button class="dropdown-item" onclick="openDetailedInformationModal(@i.Id, '@i.Title', '@i.Content', '@i.StartDate', '@i.EndDate', '@i.CompanyName', '@i.Email', '@i.File', '@i.Status','@i.ReminderSentFor')">Detaylar</button>
+                                        <button class="dropdown-item" onclick="openUpdateUsersModal(@i.Id)">İletişim Bilgisi Ekle</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                     }
+
                 </tbody>
             </table>
             <div>
                 <a href="~/Agreement/NewAgrement" class="btn btn-info">Sözleşme Ekle</a>
             </div>
-            <script>$('#btn').click(function () {
-            alert('Sözleşme Eklendi');
-        });</script>
+
+            <div class="modal fade" id="renewModal" tabindex="-1" role="dialog" aria-labelledby="renewModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="renewModalLabel">Sözleşme Yenile</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form method="post" action="~/Agreement/ReNewAgreement">
+                            <div class="modal-body">
+                                <input type="hidden" id="Id" name="Id" />
+                                <div>
+                                    <label>Sözleşme Adı</label>
+                                    <input type="text" id="Title" name="Title" class="form-control" />
+                                </div>
+                                <div>
+                                    <label>Sözleşme İçeriği</label>
+                                    <input type="text" id="Content" name="Content" class="form-control" />
+                                </div>
+                                <div>
+                                    <label>Başlangıç Tarihi</label>
+                                    <input type="date" id="StartDate" name="StartDate" class="form-control" />
+                                </div>
+                                <div>
+                                    <label>Bitiş Tarihi</label>
+                                    <input type="date" id="EndDate" name="EndDate" class="form-control" />
+                                </div>
+                                <div>
+                                    <label>Şirket</label>
+                                    <input type="text" id="CompanyName" name="CompanyName" class="form-control" />
+                                </div>
+                                <div>
+                                    <label>E-Mail</label>
+                                    <input type="email" id="Email" name="Email" class="form-control" />
+                                </div>
+                                <div>
+                                    <input type="file" id="File" name="File" class="btn btn-primary" />
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="margin-top:5px">
+                                <button type="submit" class="btn btn-info">Yenile</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal Et</button>
+                            </div>
+                            <input type="hidden" id="AdminID" name="AdminID" />
+                            <input type="hidden" id="Status" name="Status" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="detailedInformationModal" tabindex="-1" role="dialog" aria-labelledby="detailedInformationModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="detailedInformationModalLabel">Sözleşme Bilgileri</h5>
+                        </div>
+                        <form method="get">
+                            <div class="modal-body">
+                                <input type="hidden" id="iId" name="Id" />
+                                <div>
+                                    <label>Sözleşme Adı</label>
+                                    <input type="text" id="iTitle" name="Title" class="form-control" readonly />
+                                </div>
+                                <div>
+                                    <label>Sözleşme İçeriği</label>
+                                    <input type="text" id="iContent" name="Content" class="form-control" readonly />
+                                </div>
+                                <div>
+                                    <label>Başlangıç Tarihi</label>
+                                    <input type="text" id="iStartDate" name="StartDate" class="form-control" readonly />
+                                </div>
+                                <div>
+                                    <label>Bitiş Tarihi</label>
+                                    <input type="text" id="iEndDate" name="EndDate" class="form-control" readonly />
+                                </div>
+                                <div>
+                                    <label>Şirket</label>
+                                    <input type="text" id="iCompanyName" name="CompanyName" class="form-control" readonly />
+                                </div>
+                                <div>
+                                    <label>E-Mail</label>
+                                    <input type="email" id="iEmail" name="Email" class="form-control" readonly />
+                                </div>
+                                <div>
+                                    <label>Belge Adı</label>
+                                    <input type="text" id="iFile" name="File" class="form-control" readonly />
+                                </div>
+                                <div>
+                                    <label>Durum</label>
+                                    <input type="text" id="iStatus" name="Status" class="form-control" readonly />
+                                </div>
+                                <div>
+                                    <label>Hatırlatma Durumu</label>
+                                    <input type="text" id="iReminderSentFor" name="ReminderSentFor" class="form-control" readonly />
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="margin-top:5px">
+                                <a id="viewFileButton" href="#" class="btn btn-warning" target="_blank">Dosya Görüntüle</a>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="updateUsersModal" tabindex="-1" role="dialog" aria-labelledby="updateUsersModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="updateUsersModalLabel">İletişim Bilgileri</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <select class="selectUsers" name="users[]" multiple="multiple" style="width:300px;">
+                                @foreach (var user in Model.Maills)
+                                {
+                                    <option value="@user.Id"
+                                            @if (Model.AgreementMaills != null && Model.AgreementMaills.Any(am => am.MaillID == user.Id)) { <text> selected="selected" </text> }>
+                                        @user.Name @user.Surname (@user.MailAdress)
+                                    </option>
+                                }
+
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="saveUsers">Kaydet</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- jQuery and Select2 scripts -->
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+            <script src="https://cdn.datatables.net/2.1.7/js/dataTables.js"></script>
+            <script src="https://cdn.datatables.net/2.1.7/js/dataTables.bootstrap4.js"></script>
+            <link rel="stylesheet" href="https://cdn.datatables.net/2.1.7/css/dataTables.bootstrap4.css" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <script>
+                $('#dataTable').DataTable({
+                    ordering: false
+                });
+            </script>
+            <script>
+                $(document).ready(function () {
+                    // Initialize Select2
+                    $('.selectUsers').select2();
+
+                    // Explicitly initialize the modal
+                    $('#updateUsersModal').modal.on('click')({
+
+                    });
+                });
+            </script>
+
+
+            <script>
+                window.openUpdateUsersModal = function (agreementId) {
+                    $('#updateUsersModal').data('agreementId', agreementId); // Store the agreement ID
+
+                    $.ajax({
+                        url: '/Agreement/GetSelectedUsers',
+                        type: 'GET',
+                        data: { agreementId: agreementId },
+                        success: function (response) {
+                            if (response.error) {
+                                alert('Error: ' + response.error);
+                                return;
+                            }
+
+                            var selectedUsers = response.selectedUsers;
+                            var availableUsers = response.availableUsers;
+
+                            $('.selectUsers').empty();
+
+                            // Iterate over all available users
+                            availableUsers.forEach(function (user) {
+                                var isSelected = selectedUsers.some(function (su) {
+                                    return su.id === user.id;
+                                });
+
+                                // Create an option element for each user
+                                var newOption = new Option(user.nameSurname, user.id, isSelected, isSelected);
+                                $('.selectUsers').append(newOption);
+                            });
+
+                            // Refresh the Select2 element
+                            $('.selectUsers').trigger('change');
+
+                            // Show the modal
+                            $('#updateUsersModal').modal('show');
+                        },
+                        error: function (error) {
+                            alert('An error occurred.');
+                        }
+                    });
+                };
+
+                $('#saveUsers').on('click', function () {
+                    var selectedUsers = $('.selectUsers').val(); // Get selected users
+                    var agreementId = $('#updateUsersModal').data('agreementId'); // Get the agreement ID from the modal
+
+                    // Perform AJAX request to save the selected users
+                    $.ajax({
+                        url: '/Agreement/UpdateUsers',
+                        type: 'POST',
+                        data: {
+                            agreementId: agreementId,
+                            selectedUsers: selectedUsers
+                        },
+                        success: function (response) {
+                            $('#updateUsersModal').modal('hide');
+                            alert('İletişim bilgileri başarıyla güncellendi.');
+                        },
+                        error: function (error) {
+                            alert('Bir hata oluştu.');
+                        }
+                    });
+                });
+
+
+            </script>
+
+            <script>
+                function toggleStatus(agreementId) {
+    const isActive = document.getElementById(`toggle-${agreementId}`).checked;
+    const newStatus = isActive ? "Aktif" : "Pasif"; // Durumu belirliyoruz
+
+    fetch('/Agreement/ToggleStatus', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '@Html.AntiForgeryToken()'
+        },
+        body: JSON.stringify({ id: agreementId, status: newStatus })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Sözleşme durumu başarıyla güncellendi');
+        } else {
+            alert('Güncelleme sırasında bir hata oluştu');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+            </script>
+
+
+
+
+
+            <script>
+                function openRenewModal(id, title, content, startDate, endDate, companyName, email, status, adminId) {
+                    const today = new Date();
+                    const formattedToday = today.toISOString().split('T')[0];
+                    const nextYear = new Date(today.setFullYear(today.getFullYear() + 1));
+                    const formattedNextYear = nextYear.toISOString().split('T')[0];
+                    document.getElementById('Id').value = id;
+                    document.getElementById('Title').value = title;
+                    document.getElementById('Content').value = content;
+                    document.getElementById('StartDate').value = formattedToday;
+                    document.getElementById('EndDate').value = formattedNextYear;
+                    document.getElementById('CompanyName').value = companyName;
+                    document.getElementById('Email').value = email;
+                    document.getElementById('Status').value = status;
+                    document.getElementById('AdminID').value = adminId;
+                    $('#renewModal').modal('show');
+                }
+                function openDetailedInformationModal(id, title, content, startDate, endDate, companyName, email, file, status, reminderSentFor) {
+                     document.getElementById('iId').value = id;
+                     document.getElementById('iTitle').value = title;
+                     document.getElementById('iContent').value = content;
+                     document.getElementById('iStartDate').value = startDate;
+                     document.getElementById('iEndDate').value = endDate;
+                     document.getElementById('iCompanyName').value = companyName;
+                     document.getElementById('iEmail').value = email;
+                     document.getElementById('iFile').value = file;
+                    const today = new Date();
+                    const endDateObject = new Date(endDate);
+                    if (!status) {
+                        if (endDateObject < today) {
+                            document.getElementById('iStatus').value = 'Pasif';
+                        } else {
+                            document.getElementById('iStatus').value = 'Aktif';
+                        }
+                    } else {
+                        document.getElementById('iStatus').value = status;
+                    }
+
+                    if (reminderSentFor === null || reminderSentFor === '') {
+                        document.getElementById('iReminderSentFor').value = 'Hatırlatma mesajı gönderilmedi.';
+                    } else {
+                        document.getElementById('iReminderSentFor').value = reminderSentFor + '. hatırlatma mesajı gönderildi.';
+                    }
+                                const filePath = '@Url.Content("~/OrnekSozlesmeler/")' + file;
+                                document.getElementById('viewFileButton').href = filePath;
+                                $('#detailedInformationModal').modal('show');
+                    }
+            </script>
+
+
         </div>
     </div>
 </div>

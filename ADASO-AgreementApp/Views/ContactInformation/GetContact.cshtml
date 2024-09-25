@@ -1,0 +1,41 @@
+﻿@model ADASO_AgreementApp.Models.Entity.Maill
+@{
+    ViewBag.Title = "GetContact";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("Update", "ContactInformation", FormMethod.Post))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.HiddenFor(m => m.Id)
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name, "Ad")
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Surname, "Soyad")
+                    @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
+                </div>
+                <div>
+                    <button class="btn btn-success" style="margin-bottom:10px;">GÜNCELLE</button>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PhoneNumber, "Telefon")
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MailAdress, "Email")
+                    @Html.TextBoxFor(m => m.MailAdress, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

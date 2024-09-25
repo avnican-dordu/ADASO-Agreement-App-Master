@@ -14,6 +14,14 @@ namespace ADASO_AgreementApp.Models.Entity
     
     public partial class Adminn
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Adminn()
+        {
+            this.Agreementts = new HashSet<Agreementt>();
+            this.Maills = new HashSet<Maill>();
+            this.AgreementMaills = new HashSet<AgreementMaill>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -23,5 +31,12 @@ namespace ADASO_AgreementApp.Models.Entity
         public string Image { get; set; }
         public string Role { get; set; }
         public string Password { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Agreementt> Agreementts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Maill> Maills { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AgreementMaill> AgreementMaills { get; set; }
     }
 }

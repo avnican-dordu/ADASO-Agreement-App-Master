@@ -1,43 +1,64 @@
 ﻿@model ADASO_AgreementApp.Models.Entity.Adminn
+@using ADASO_AgreementApp.Helper
 @{
     ViewBag.Title = "KullanıcıGetir";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-
-
-
 @using (Html.BeginForm("Guncelle","Admin", FormMethod.Post))
 {
-    <div class="form-group" style="padding-left:10px;">
-        @Html.LabelFor(m => m.Id)
-        @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })
-        <br />
-        @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            @Html.HiddenFor(m => m.Id)
 
-        <br />
-        @Html.LabelFor(m => m.Surname)
-        @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
-        <br />
-        @Html.LabelFor(m => m.Tel)
-        @Html.TextBoxFor(m => m.Tel, new { @class = "form-control" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, "Ad")
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            </div>
 
-        <br />
-        @Html.LabelFor(m => m.Mail)
-        @Html.TextBoxFor(m => m.Mail, new { @class = "form-control" })
-        
-        <br />
-        @Html.LabelFor(m => m.TC)
-        @Html.TextBoxFor(m => m.TC, new { @class = "form-control" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Surname, "Soyad")
+                @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
+            </div>
 
-        <br />
-        @Html.LabelFor(m => m.Role)
-        @Html.TextBoxFor(m => m.Role, new { @class = "form-control" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Tel, "Telefon")
+                @Html.TextBoxFor(m => m.Tel, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, "Şifre")
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control"})
+            </div>
+            <div>
+                <button class="btn btn-success" style="margin-bottom:10px;">GÜNCELLE</button>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Mail, "Email")
+                @Html.TextBoxFor(m => m.Mail, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.TC, "TC")
+                @Html.TextBoxFor(m => m.TC, new { @class = "form-control" })
+            </div>
+            @{ 
+                var currentUser = UserHelper.GetCurrentUser();
+            }
+            @if (currentUser.Role == "Admin")
+            {
+            <div class="form-group">
+                @Html.LabelFor(m => m.Role, "Pozisyon")
+                <select class="form-control" id="Role" name="Role">
+                    <option value="Admin" @(Model.Role == "Admin" ? "selected" : "")>Admin</option>
+                    <option value="Kullanıcı" @(Model.Role == "Kullanıcı" ? "selected" : "")>Kullanıcı</option>
+                </select>
+            </div>}
+        </div>
     </div>
-<div style="padding-left:10px;">
-    <button class="btn btn-success" style="margin-bottom:10px;">GÜNCELLE</button>
 </div>
 }
-
-

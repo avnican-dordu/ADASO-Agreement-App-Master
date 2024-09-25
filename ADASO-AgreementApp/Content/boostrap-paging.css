@@ -1,0 +1,20 @@
+﻿
+    .pagination{
+    justify-content: center;
+}
+
+.page-item.active .page-link {
+    background-color: #28a745; /* Yeni renk */
+    border-color: #28a745; /* Yeni renk */
+}
+
+.page-link {
+    color: #28a745; /* Yeni renk */
+}
+
+    .page-link:hover {
+        color: white;
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+

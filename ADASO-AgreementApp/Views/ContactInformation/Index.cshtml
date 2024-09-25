@@ -1,0 +1,55 @@
+﻿@model ADASO_AgreementApp.Models.ViewModel.Class
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">İLETİŞİM BİLGİLERİ</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive" style="overflow-x: hidden;">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Ad</th>
+                        <th>Soyad</th>
+                        <th>Telefon</th>
+                        <th>Mail</th>
+                        <th>Bilgileri Güncelle</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var items in Model.Maills)
+                    {
+                        <tr>
+                            <td>@items.Name</td>
+                            <td>@items.Surname</td>
+                            <td>@items.PhoneNumber</td>
+                            <td>@items.MailAdress</td>
+                            <td><a href="~/ContactInformation/GetContact/@items.Id" class="btn btn-outline-success">Bilgileri Güncelle</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <a class="btn btn-info" href="~/ContactInformation/AddContact">İletişim Bilgisi Ekle</a>
+    </div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://cdn.datatables.net/2.1.7/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.1.7/js/dataTables.bootstrap4.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.7/css/dataTables.bootstrap4.css" />
+<script>
+    $('#dataTable').DataTable({
+        ordering: false
+    });
+</script>
+
+
+

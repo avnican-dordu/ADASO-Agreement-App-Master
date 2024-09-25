@@ -24,6 +24,7 @@ namespace ADASO_AgreementApp
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-paging.css",
                       "~/Content/site.css"));
         }
     }

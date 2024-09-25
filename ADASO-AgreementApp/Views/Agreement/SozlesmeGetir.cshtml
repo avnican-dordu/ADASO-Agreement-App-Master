@@ -4,42 +4,75 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-@using (Html.BeginForm("Guncelle", "Agreement", FormMethod.Post))
+@using (Html.BeginForm("Guncelle", "Agreement", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <div class="form-group" style="padding-left:10px;">
-        @Html.LabelFor(m => m.Id)
-        @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })
-        <br />
-        @Html.LabelFor(m => m.Title)
-        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
-        <br />
-        @Html.LabelFor(m => m.Content)
-        @Html.TextBoxFor(m => m.Content, new { @class = "form-control" })
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.HiddenFor(m => m.Id)
+                </div>
+                <div>
+                    @Html.HiddenFor(m => m.Status)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Title, "Başlık")
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.StartDate, "Başlangıç Tarihi")
+                    @Html.TextBoxFor(m => m.StartDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CompanyName, "Şirket Adı")
+                    @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, "Email")
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">GÜNCELLE</button>
+                </div>
+            </div>
 
-        <br />
-        @Html.LabelFor(m => m.EndDate)
-        @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control" })
-        <br />
-        @Html.LabelFor(m => m.StartDate)
-        @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control" })
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Content, "İçerik")
+                    @Html.TextBoxFor(m => m.Content, new { @class = "form-control" })
+                </div>
 
-        <br />
-        @Html.LabelFor(m => m.File)
-        @Html.TextBoxFor(m => m.File, new { @class = "form-control" })
 
-        <br />
-        @Html.LabelFor(m => m.CompanyName)
-        @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
 
-        <br />
-        @Html.LabelFor(m => m.Email)
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        <br />
-        @Html.LabelFor(m => m.AgreementNo)
-        @Html.TextBoxFor(m => m.AgreementNo, new { @class = "form-control" })
-    </div>
-    <div style="padding-left:10px;">
-        <button class="btn btn-success" style="margin-bottom:10px;">GÜNCELLE</button>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.EndDate, "Bitiş Tarihi")
+                    @Html.TextBoxFor(m => m.EndDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.File, "Dosya")
+                    <input type="file" id="fileInput" name="File" class="btn btn-primary" />
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.File, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+
+            </div>
+        </div>
     </div>
 }
 
+<script type="text/javascript">
+    document.getElementById('fileInput').addEventListener('change', function () {
+        var fileInput = document.getElementById('fileInput');
+        var File = document.getElementById('File');
+
+        if (fileInput.files.length > 0) {
+            File.value = fileInput.files[0].name;
+        } else {
+            File.value = '';
+        }
+    });
+</script>
