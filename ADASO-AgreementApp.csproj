@@ -2595,9 +2595,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="startbootstrap-sb-admin-2-gh-pages\.browserslistrc" />
     <Content Include="startbootstrap-sb-admin-2-gh-pages\.travis.yml" />
     <Content Include="startbootstrap-sb-admin-2-gh-pages\LICENSE" />

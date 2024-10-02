@@ -79,7 +79,6 @@ namespace ADASO_AgreementApp.Controllers
             return View("KullanıcıGetir", userToEdit); // Yetkili ise kullanıcıyı getir
         }
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public ActionResult CreateUser() { return View(); }
         [Authorize(Roles = "Admin")]
         [HttpPost]
