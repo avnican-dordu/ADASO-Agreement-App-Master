@@ -14,7 +14,7 @@
     public partial class Service1 : ServiceBase
     {
         private Timer timer;
-        private string connectionString = "Server=USER\\SQLEXPRESS;Database=ADASO;Integrated Security=True;MultipleActiveResultSets=True;";
+        private string connectionString = "";
 
         public Service1()
         {
@@ -152,7 +152,7 @@
                 MailMessage mail = new MailMessage();
                 SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
 
-                mail.From = new MailAddress("adasoexample@gmail.com");
+                mail.From = new MailAddress("");
                 mail.To.Add(recipientEmail);
                 mail.Subject = "SÖZLEŞME BİTİŞ HATIRLATMASI";
                 mail.IsBodyHtml = true;
@@ -307,7 +307,7 @@
 ";
 
                 smtpServer.Port = 587;
-                smtpServer.Credentials = new NetworkCredential("adasoexample@gmail.com", "bcqh zxtl wioc bzsb");
+                smtpServer.Credentials = new NetworkCredential("", "");
                 smtpServer.EnableSsl = true;
 
                 smtpServer.Send(mail);
@@ -325,7 +325,7 @@
                 MailMessage mail = new MailMessage();
                 SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
 
-                mail.From = new MailAddress("adasoexample@gmail.com");
+                mail.From = new MailAddress("");
                 mail.To.Add(recipientEmail);
                 mail.Subject = "SÖZLEŞME BİTİŞ GÜNÜ HATIRLATMASI";
                 mail.IsBodyHtml = true;
@@ -480,7 +480,7 @@
 ";
 
                 smtpServer.Port = 587;
-                smtpServer.Credentials = new NetworkCredential("adasoexample@gmail.com", "bcqh zxtl wioc bzsb");
+                smtpServer.Credentials = new NetworkCredential("", "");
                 smtpServer.EnableSsl = true;
 
                 smtpServer.Send(mail);
